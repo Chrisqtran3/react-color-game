@@ -1,13 +1,9 @@
-import React from "react";
+import * as React from "react";
+import styles from "./styles.module.css";
 
 export default function Square({ color }) {
-  const squareStyle = {
-    height: "200px",
-    width: "200px",
-    backgroundColor: color,
-    borderRadius: "10px",
-    margin: "10px",
-    display: "inline"
+  const style = {
+    backgroundColor: color
   };
-  return <div style={squareStyle} />;
+  return <div style={style} className={styles.square} />;
 }

@@ -1,0 +1,10 @@
+.heading {
+  color: white;
+  text-align: center;
+  line-height: 1.1;
+  background: steelblue;
+  margin: 0;
+  font-weight: normal;
+  text-transform: uppercase;
+  padding: 20px 0;
+}

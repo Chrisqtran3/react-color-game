@@ -1,80 +1,51 @@
-import React from "react";
-import "./App.css";
+import * as React from "react";
+import styles from "./app.module.css";
+import Stripe from "./components/Stripe";
 import SquareBoard from "./components/SquareBoard";
-import { generateColor } from "./functions/index";
+import { generateRandomColors } from "./functions/index";
 
-class App extends React.Component {
+export default class App extends React.Component {
   state = {
-    easyMode: true,
-    squares: [],
-    currentSquare: null,
-    gameOver: false
+    numberOfSquares: 6,
+    colors: [],
+    pickedColor: null
   };
 
-  toggleDifficulty = () => {
-    this.setState({ easyMode: !this.state.easyMode });
+  easyBtnClick = () => {
+    this.setState({
+      numberOfSquares: 3,
+      colors: generateRandomColors(3)
+    });
+  };
+
+  hardBtnClick = () => {
+    this.setState({
+      numberOfSquares: 6,
+      colors: generateRandomColors(6)
+    });
   };
 
   componentDidMount() {
-    this.createSquares(this.state.easyMode);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.easyMode !== prevState.easyMode) {
-      this.createSquares(this.state.easyMode);
-    }
-  }
-
-  renderCurrentColor() {
-    const { currentSquare } = this.state;
-
-    if (!currentSquare) {
-      return <h2>loading...</h2>;
-    }
-
-    return <h2>{currentSquare.color}</h2>;
-  }
-
-  createSquares(easyMode) {
-    let numberOfSquares;
-    if (easyMode) {
-      numberOfSquares = 3;
-    } else {
-      numberOfSquares = 6;
-    }
-    const squares = [];
-    for (let i = 0; i < numberOfSquares; i++) {
-      squares.push({
-        color: generateColor()
-      });
-    }
-
-    const last = squares.length - 1;
-    const randomIndex = Math.floor(Math.random() * (last - 0 + 1) + 0);
-
-    this.setState({
-      squares,
-      currentSquare: squares[randomIndex]
-    });
+    this.setState({ colors: generateRandomColors(this.state.numberOfSquares) });
   }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>The Great RGB Color Game</h1>
-          {this.renderCurrentColor()}
-          <button
-            onClick={() => this.toggleDifficulty()}
-            style={{ margin: "10px 0" }}
-          >
-            Toggle Difficulty
-          </button>
-          <SquareBoard squares={this.state.squares} />
-        </header>
+      <div>
+        <h1 className={styles.heading}>
+          The Great
+          <br />
+          <span id="colorDisplay">RGB</span>
+          <br />
+          Color Game
+        </h1>
+        <Stripe
+          squares={this.state.numberOfSquares}
+          easyClick={this.easyBtnClick}
+          hardClick={this.hardBtnClick}
+        />
+        <SquareBoard colors={this.state.colors} />
       </div>
     );
   }
 }
-
-export default App;

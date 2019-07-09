@@ -1,20 +1,19 @@
-import React from "react";
+import * as React from "react";
+import styles from "./styles.module.css";
 import Square from "./Square";
 
-export default function SquareBoard({ squares }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        maxWidth: "80%",
-        flexWrap: "wrap",
-        justifyContent: "center"
-      }}
-    >
-      {squares.map((square, index) => {
-        return <Square key={index} color={square.color} />;
-      })}
-    </div>
-  );
+class SquareBoard extends React.Component {
+  renderSquares() {
+    const { colors } = this.props;
+
+    return colors.map((color, index) => {
+      return <Square color={color.color} key={index} />;
+    });
+  }
+  render() {
+    console.log(this.props.colors);
+    return <div className={styles.container}> {this.renderSquares()} </div>;
+  }
 }
+
+export default SquareBoard;
