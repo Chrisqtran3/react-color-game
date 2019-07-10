@@ -4,11 +4,15 @@ import Stripe from "./components/Stripe";
 import SquareBoard from "./components/SquareBoard";
 import { generateRandomColors } from "./functions/index";
 
+const hardSquares = 6;
+const easySquares = 3;
+
 export default class App extends React.Component {
   state = {
     numberOfSquares: 6,
     colors: [],
-    pickedColor: null
+    pickedColor: null,
+    isHardMode: true
   };
 
   easyBtnClick = () => {
@@ -25,6 +29,12 @@ export default class App extends React.Component {
     });
   };
 
+  toggleDifficulty = () => {
+    this.setState({
+      isHardMode: !this.state.isHardMode
+    });
+  };
+
   componentDidMount() {
     this.setState({ colors: generateRandomColors(this.state.numberOfSquares) });
   }
@@ -34,6 +44,7 @@ export default class App extends React.Component {
   };
 
   render() {
+    console.log(this.state.isHardMode);
     return (
       <div>
         <h1 className={styles.heading}>
@@ -44,6 +55,7 @@ export default class App extends React.Component {
           Color Game
         </h1>
         <Stripe
+          toggle={this.toggleDifficulty}
           reset={this.reset}
           squares={this.state.numberOfSquares}
           easyClick={this.easyBtnClick}
