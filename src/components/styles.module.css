@@ -56,4 +56,5 @@
   outline: none;
   color: white;
   background: steelblue;
+  pointer-events: none;
 }

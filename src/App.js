@@ -29,6 +29,10 @@ export default class App extends React.Component {
     this.setState({ colors: generateRandomColors(this.state.numberOfSquares) });
   }
 
+  reset = numberOfSquares => {
+    this.setState({ colors: generateRandomColors(numberOfSquares) });
+  };
+
   render() {
     return (
       <div>
@@ -40,6 +44,7 @@ export default class App extends React.Component {
           Color Game
         </h1>
         <Stripe
+          reset={this.reset}
           squares={this.state.numberOfSquares}
           easyClick={this.easyBtnClick}
           hardClick={this.hardBtnClick}

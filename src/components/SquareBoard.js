@@ -11,7 +11,6 @@ class SquareBoard extends React.Component {
     });
   }
   render() {
-    console.log(this.props.colors);
     return <div className={styles.container}> {this.renderSquares()} </div>;
   }
 }
