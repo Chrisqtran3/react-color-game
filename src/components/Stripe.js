@@ -3,24 +3,12 @@ import styles from "./styles.module.css";
 
 class Stripe extends React.Component {
   render() {
-    const { squares, reset, easyClick, toggle, hardClick } = this.props;
-    const easyBtn = squares === 6 ? styles.button : styles.selected;
-    const hardBtn = squares === 6 ? styles.selected : styles.button;
+    const { toggle, reset } = this.props;
     return (
       <div className={styles.stripe}>
-        <button
-          onClick={() => reset(squares)}
-          className={styles.button}
-          id="reset"
-        >
-          New Colors
-        </button>
         <span id="messageDisplay" />
-        <button onClick={() => easyClick()} className={easyBtn}>
-          Easy
-        </button>
-        <button onClick={() => hardClick()} className={hardBtn}>
-          Hard
+        <button onClick={() => reset()} className={styles.button}>
+          New Colors
         </button>
         <button onClick={() => toggle()} className={styles.button}>
           Toggle Difficulty
